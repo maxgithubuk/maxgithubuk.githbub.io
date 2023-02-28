@@ -1,0 +1,116 @@
+< a min
+<html>
+<head>
+  <title>Pomodoro Timer</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+    }
+
+    #background {
+      background-image: url("https://assets.vogue.com/photos/623cac47c241cffc26b93122/master/pass/image1.jpegg");
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(5px);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+      z-index: 1;
+      position: relative;
+    }
+
+    #timer {
+      font-size: 5em;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+      z-index: 1;
+      position: relative;
+    }
+
+    #button-container {
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    button {
+      font-size: 1.5em;
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: #f6e58d;
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #f9ca24;
+    }
+
+    button:active {
+      background-color: #f9ca24;
+      box-shadow: none;
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body>
+  <div id="background"></div>
+  <h1>Pomodoro Timer</h1>
+  <p id="timer">25:00</p>
+  <div id="button-container">
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="resetTimer()">Reset</button>
+  </div>
+  <script>
+    var timerElement = document.getElementById("timer");
+    var timeLeft = 1500; // 25 minutes in seconds
+    var intervalId = null;
+
+    function startTimer() {
+      intervalId = setInterval(function() {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+          clearInterval(intervalId);
+          alert("Time's up!");
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(intervalId);
+    }
+
+    function resetTimer() {
+      stopTimer();
+      timeLeft = 1500;
+      updateTimer();
+    }
+
+    function updateTimer() {
+      var minutes = Math.floor(timeLeft / 60);
+      var seconds = timeLeft % 60;
+      timerElement.innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    }
+  </script>
+</body>
+</html>
